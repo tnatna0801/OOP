@@ -19,29 +19,29 @@ shared_mut::~shared_mut() {
 
 //reduce count 1 and if count is 0 delete mgr
 void shared_mut::release() {
-	_mgr->count -= 1;
+	this->_mgr->count -= 1;
 	//std::cout << "count: " << _mgr->count << std::endl;
-	if (_mgr->count == 0)
-		_mgr->~mgr();
+	if (this->_mgr->count == 0)
+		this->_mgr->~mgr();
 
 } 
 
 //return obj ptr if mgr is nullptr return nullptr 
 Object* shared_mut::get() const {
-	if (_mgr->ptr == nullptr)
+	if (this->_mgr->ptr == nullptr)
 		return nullptr;
 	else
-		return _mgr->ptr; 
+		return this->_mgr->ptr; 
 }
 
 //mgr의 count를 리턴
 int shared_mut::count() {
-	return _mgr->count;
+	return this->_mgr->count;
 }
 
 //mgr의 count를 1 증가시켜줌
 void shared_mut::increase() {
-	_mgr->count += 1;
+	this->_mgr->count += 1;
 }
 
 //사칙연산 : mgr의 val끼리 연산을 한 결과를 새로운 shared_mut에 넣어 리턴한다.
