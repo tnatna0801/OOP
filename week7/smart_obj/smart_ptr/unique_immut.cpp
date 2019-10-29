@@ -26,16 +26,16 @@ unique_immut::~unique_immut() {
 
 //mgr의 object 포인터를 리턴해줌. nullptr일 경우 nullptr을 리턴함
 Object* unique_immut::get() const {
-	if (_mgr == nullptr)
+	if (this->_mgr == nullptr)
 		return nullptr;
 	else
-		return _mgr->ptr;
+		return this->_mgr->ptr;
 }
 
 //mgr이 nullptr이 아닌경우 mgr을 delete함
 void unique_immut::release(){
-	if (_mgr != nullptr)
-		_mgr->~mgr();
+	if (this->_mgr != nullptr)
+		this->_mgr->~mgr();
 }
 
 //사칙연산 : mgr의 val끼리 연산을 한 결과를 새로운 unique_immut에 넣어 리턴 
@@ -67,7 +67,7 @@ unique_immut unique_immut::operator/(unique_immut &unique){
 // 기존의 mgr을 release하고 새로운 mgr로 대체한다. 
 unique_immut& unique_immut::operator=(unique_immut& r){
 	if(r._mgr != this->_mgr) { 
-		this->release();
+		release();
 		this->_mgr = r._mgr;
 	}
 	return *this; //새로운 mgr이 자기자신이면 그대로 return 한다.
