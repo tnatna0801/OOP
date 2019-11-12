@@ -1,9 +1,6 @@
 #include "bike.h"
 
-bike::bike() : vehicle() {
-	bike_name = nullptr;
-	bike_number = 0;
-}
+bike::bike() : vehicle() {}
 
 bike::bike(int _wheel_number, int _max_speed) : vehicle(_wheel_number, _max_speed){
 }

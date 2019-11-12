@@ -1,8 +1,6 @@
 #include "car.h"
 
-car::car() : vehicle(){
-	car_name = nullptr;
-}
+car::car() : vehicle(){}
 
 car::car(int _wheel_number, int _max_speed) : vehicle(_wheel_number, _max_speed) {
 	//부모 생성자를 호출
