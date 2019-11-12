@@ -2,8 +2,6 @@
 
 vehicle::vehicle() {
 	has_name = false;
-	wheel_number = 0;
-	max_speed = 0;
 }
 
 vehicle::vehicle(int _wheel_number, int _max_speed){
