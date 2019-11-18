@@ -30,9 +30,9 @@ int weak_pointer::is_expired() {
     // ptr_map에서 ptr을 관리하는 mgr이 있으면(nullptr이 아니면) 1 리턴
     // 아닐 경우 0 리턴
 	if(ptr_map[ptr] != nullptr)
-		return 1;
-	else
 		return 0;
+	else
+		return 1;
 }
 
 student *weak_pointer::get() {
