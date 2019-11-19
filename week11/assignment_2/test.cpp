@@ -25,6 +25,23 @@ int main() {
                 ->sub(new Complex(11, 5));
 
         std::cout << dynamic_cast<Complex *>(result)->to_string() << std::endl; // 24.980000 - 5.000000i
+
+		Number *b = new Float(4.25);
+		Number *result2 = b
+			->add(new Float(1.85)) 
+			->sub(new Float(0.1)) //6
+			->sub(new Integer(1)) //5
+			->mul(new Float(10.5)) //52.5
+			->mul(new Complex(2, 4));//105 + 210i
+		std::cout << dynamic_cast<Complex *>(result2)->to_string() << std::endl;  
+
+		Number *c = new Complex(1, 1);
+        Number *result3 = c
+                ->add(new Complex(2, 2)) // 3 + 3i
+                ->sub(new Complex(1, 1)) // 2 + 2i
+                ->mul(new Complex(3, 2)); // 2 + 8i
+
+        std::cout << dynamic_cast<Complex *>(result3)->to_string() << std::endl; 
     }
     // 테스트 코드 작성해보고 확인해보세요
     // 채점은 임의의 테스트코드로 진행할 예정입니다

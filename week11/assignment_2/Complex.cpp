@@ -114,18 +114,18 @@ Number *Complex::mul(Number * num) {
      */
 	if (num->types() == INTEGER) {
 		Integer* other = dynamic_cast<Integer*>(num);
-		this->set_val(this-> real() * other->val(), this->imag());
+		this->set_val(this-> real() * other->val(), this->imag() * other->val());
 		//delete(this);
 		delete(other);
 		return this;
     } else if (num->types() == FLOAT) {
 		Float* other = dynamic_cast<Float*>(num);
-		this->set_val(this->real() * other->val(), this->imag());
+		this->set_val(this->real() * other->val(), this->imag() * other->val());
     	delete(other);
 		return this;
 	} else if (num->types() == COMPLEX) {
 		Complex* other = dynamic_cast<Complex*>(num);
-		this->set_val(this->real() * other->real() - this-> imag(), this->real() * other->imag() + this->imag());
+		this->set_val((this->real() * other->real()) - (this-> imag() * other->imag()), (this->real() * other->imag()) + (this->imag()*other->imag()));
     	delete(other);
 		return this;
 
