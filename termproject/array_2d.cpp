@@ -45,12 +45,19 @@ bool array_2d::can_make(int type){
 	// 1:fold, 2:tree, 3:cross
 	if(type == 1)
 	{
-		if(block_array[1][2]->get_color() != 0)
+		if(block_array[1][2]->get_color() != 0 || block_array[1][1]->get_color() != 0)  
 			return false;
 	}
-	else
+	else if (type == 2)
+	{
 		if(block_array[2][2]->get_color() != 0)
 			return false;
+	}
+	else if(type == 3)
+	{
+		if(block_array[2][2]->get_color() != 0 || block_array[1][1]->get_color() != 0 || block_array[1][3]->get_color() != 0)
+			return false;
+	}
 	return true; //구현 x
 }
 
@@ -58,7 +65,7 @@ bool array_2d::can_make(int type){
 //explosion에서 호출하는 건가? 
 void array_2d::delete_block(int x, int y){
 	block_array[y][x] = new block(0);
-	
+	block_array[y][x]->set_location(x, y);
 }
 
 //왜 벡터를 매개변수로 받는거지?
@@ -74,6 +81,7 @@ void array_2d::insert(vector<block *> v){
 //block을 매개변수로 받으면서 x, y는 왜 받지?
 void array_2d::insert(int x, int y, block *b){
 	block_array[y][x] = b;
+	b->set_location(x, y);
 }
 
 //get block
@@ -134,7 +142,7 @@ void array_2d::insert_explosion(color_block *group){
 	
 	
 	//grey도 찾아야지... 
-	if(group->get_set_size() >= 4)
+	if(group->get_set_size() >= 4) // grey는 옆의 블록이 터지면 터진다. 
 	{
 		int x;
 		int y;
@@ -175,39 +183,52 @@ void array_2d::insert_explosion(color_block *group){
 					array_2d::insert_explosion(tmp->get_group());
 				}
 			}
-		
-			/*
-			block *right = array_2d::get_block(x+1, y);
-			block *u = array_2d::get_block(x, y-1);
-			block *d = array_2d::get_block(x, y+1);
-		
-		//segmentation fault
-		//cout << "?????" << endl;
-			cout << "위에 색깔 : 1이 나와야함 " << u->get_color() <<endl;
-		
-			if(left->get_color() == 1)
-			{
-				array_2d::insert_explosion(left->get_group());
-			}
-			else if(right->get_color() == 1)
-			{	
-				array_2d::insert_explosion(right->get_group());
-			}		
-			else if(u->get_color() == 1)
-			{		
-				cout << "?????" << endl;
-
-				array_2d::insert_explosion(u->get_group());
-			}
-			else if(d->get_color() == 1)
-			{	
-				cout << "아래 " << endl;
-				array_2d::insert_explosion(d->get_group());
-			}
-			*/
-		
 		}	
 	}
+	/*
+	else if(group->get_set_size() == 1) //grey는 옆의 블록이 터지면 같이 터진다. grey옆의 grey인 경우 	
+	{	
+		auto iterator = group->s.begin();
+		if((*iterator)->get_color() ==1)
+		{
+			int x = (*iterator)->get_x();
+			int y = (*iterator)->get_y(); 
+			if(get_block(x-1, y) != nullptr)
+			{
+				block * tmp = array_2d::get_block(x-1, y);
+				if(tmp->get_color() == 1)
+				{
+					array_2d::insert_explosion(tmp->get_group());
+				}
+			}
+			if(get_block(x+1, y) != nullptr)
+			{
+				block * tmp = array_2d::get_block(x+1, y);
+				if(tmp->get_color() == 1)
+				{
+					array_2d::insert_explosion(tmp->get_group());
+				}
+			}
+			if(get_block(x, y-1) != nullptr)
+			{
+				block * tmp = array_2d::get_block(x, y-1);
+				if(tmp->get_color() == 1)
+				{
+					array_2d::insert_explosion(tmp->get_group());
+				}
+			}
+			if(get_block(x, y+1) != nullptr)
+			{
+				block * tmp = array_2d::get_block(x, y+1);
+				if(tmp->get_color() == 1)
+				{
+					array_2d::insert_explosion(tmp->get_group());
+				}
+			}
+
+		}	
+	}
+	*/
 }
 
 void array_2d::remove_explosion(color_block *group){

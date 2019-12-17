@@ -107,9 +107,10 @@ void block::down_all(){
 	{
 		if(!array_2d::can_move(get_x(), get_y()+1))
 			break;
+		down();
 		//cout << "block의 down_all" << endl;
-		array_2d::delete_block(get_x(), get_y());
-		this->set_location(get_x(), get_y() + 1);	
+	//	array_2d::delete_block(get_x(), get_y());
+	//	this->set_location(get_x(), get_y() + 1);	
 		//cout << this->get_color() <<"1씩 감소" <<get_y() << endl;
 	}
 	array_2d::insert(get_x(), get_y(), this);

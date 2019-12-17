@@ -36,7 +36,7 @@ int color_block::get_set_size(){
 		return size;
 	
 	//:w
-	//	return size;
+		return size;
 }
 
 //터트림? 
@@ -47,11 +47,55 @@ void color_block::explosion(){
 	for(auto it = s.begin(); it != s.end(); it++)
 	{
 		//array_2d::delete_block((*it)->get_x(), (*it)->get_y()); //게임 맵에서 블록 ->
-		cout << "color_block explosion " << endl;
+		//cout << "color_block explosion " << endl;
 		x = (*it)->get_x();
 		y = (*it)->get_y();
-		(*it)->~block();// 소멸자 호출??
+		//(*it)->~block();// 소멸자 호출??
 		
+	/*	if(this->get_set_size() == 1) //grey는 옆의 블록이 터지면 같이 터진다. grey옆의 grey인 경우 	
+		{	
+			if((*it)->get_color() ==1)
+			{
+				int x = (*it)->get_x();
+				int y = (*it)->get_y(); 
+				if(array_2d::get_block(x-1, y) != nullptr)
+				{
+					block * tmp = array_2d::get_block(x-1, y);
+					if(tmp->get_color() == 1)
+					{
+						tmp->get_group()->explosion();
+					}
+				}
+				if(array_2d::get_block(x+1, y) != nullptr)
+				{
+					block * tmp = array_2d::get_block(x+1, y);
+					if(tmp->get_color() == 1)
+					{
+							tmp->get_group()->explosion();
+					}
+				}
+				if(array_2d::get_block(x, y-1) != nullptr)
+				{
+					block * tmp = array_2d::get_block(x, y-1);
+					if(tmp->get_color() == 1)
+					{
+						tmp->get_group()->explosion();
+					}
+				}
+				if(array_2d::get_block(x, y+1) != nullptr)
+				{
+					block * tmp = array_2d::get_block(x, y+1);
+					if(tmp->get_color() == 1)
+					{
+						tmp->get_group()->explosion();
+					}
+				}
+
+			}	
+		}
+		*/
+		(*it)->~block();// 소멸자 호출??
+
 		//////모든 블록 아래로 이동 
 		block * tmp;
 		for(int i = y-1; i >= 0; i--)

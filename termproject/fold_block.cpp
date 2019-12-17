@@ -41,10 +41,8 @@ void fold_block::rotate(){
 	int x3 = v[2]->get_x();
 	int y3 = v[2]->get_y();
 
-	if(cnt == 0)//array_2d::can_move(x2, y2-1)) //&& array_2d::can_move(x2-1, y2) && array_2d::can_move(x3, y3-1))
+	if(cnt == 0)
 	{
-		cout << "첫번째 회전" << endl;
-		//array_2d::delete_block(x1, y1);
 		v[0]->set_location(x1, y1+1);
 		v[1]->set_location(x2, y2-1);
 		v[2]->set_location(x3-1, y3);
@@ -57,7 +55,6 @@ void fold_block::rotate(){
 	}
 	else if(cnt == 1) // 180 ㄴ
 	{
-		cout << "2번째 회전 " << endl;
 		array_2d::delete_block(x3, y3);
 		v[0]->set_location(x1+1, y1);
 		v[1]->set_location(x2, y2-1);
@@ -71,7 +68,6 @@ void fold_block::rotate(){
 	}
 	else if(cnt == 2)//array_2d::can_move(x2, y2+1)) // 270 
 	{
-		cout << "세번째 회전 " << endl;
 		array_2d::delete_block(x3, y3);
 		v[0]->set_location(x1+1, y1);
 		v[1]->set_location(x2, y2+1);
@@ -86,7 +82,6 @@ void fold_block::rotate(){
 	}
 	else if(cnt == 3)//array_2d::can_move(x1, y+1)) // 360
 	{
-		cout<< "네번째 회전 == 원래대로 " <<endl;
 		v[0]->set_location(x1+1, y1);
 		v[1]->set_location(x2, y2+1);
 		v[2]->set_location(x3-1, y3);
@@ -100,11 +95,6 @@ void fold_block::rotate(){
 	array_2d::delete_block(x1, y1);
 	array_2d::delete_block(x2, y2);
 	array_2d::delete_block(x3, x3);
-	//big_block::min_x = std::min({x1, x2, x3});
-	//big_block::min_y = std::min({y1, y2, y2});
-	//big_block::max_x = std::max({x1, x2, x3});
-	//big_block::max_y = std::max({y1, y2, y3});
-
 }
 
 int fold_block::get_count(){

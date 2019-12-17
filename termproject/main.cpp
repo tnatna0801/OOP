@@ -25,16 +25,16 @@ bool make_big_block()
 	srand((unsigned int)time(0));
 	
 	//블록 종류
-	int block_kinds = (rand()%3) + 1; 
+	int block_kinds = 1;//(rand()%3) + 1; 
 	
 	if(!(tmp->can_make(block_kinds)))
 		return make;
 
 
 	//각 블록의 색깔 
-	int c1 = (rand() % 4) + 1; 
-	int c2 = (rand() % 4) + 1;
-	int c3 = (rand() % 4) + 1;
+	int c1 = 1;//(rand() % 4) + 1; 
+	int c2 = 1;//(rand() % 4) + 1;
+	int c3 = 4;//(rand() % 4) + 1;
 
 	if(block_kinds == 1 && tmp->can_make(1))
 	{
@@ -57,10 +57,8 @@ bool make_big_block()
 	return make;
 }
 
-////유저입력을 받고 블록 이동
-// 수정 
-//can_down() 이 false라도 can_left(), can_right()라면 계속 키입력을 받음
-//따라서 위의 경우에는 s나 x를 한번더 눌러야함  
+////유저에게 키 입력을 받고 블록 이동
+////can_right()나 can_left()가 가능하더라도 가장 아랫 블록이 can_down이라면 종료 ==> 아래에 닿는 순간 종료 
 void move_block()
 {
 	while(initB->can_down())
@@ -75,15 +73,10 @@ void move_block()
 		 */
 		if((char)kInput == 'a' || (char)kInput == 'A')
 		{	
-			//cout << "확인" << endl;
 			if(initB->can_left())
 			{	
 				initB->left();
-				//tmp->insert(initB->v);
-
 			}
-			//else
-			//	continue;
 		}
 		else if((char)kInput == 'd' || (char)kInput == 'D')
 		{
@@ -92,8 +85,6 @@ void move_block()
 				initB->right();
 				//tmp->insert(initB->v);
 			}
-			//else
-			//	continue;
 		}
 		else if((char)kInput == 's' || (char)kInput == 'S')
 		{
@@ -123,6 +114,7 @@ void move_block()
 		tmp->insert(initB->v);
 		cout << endl;
 		cout << endl;
+		cout << "score : " << tmp->get_score() <<endl;
 		tmp->print();
 		continue;
 	}
@@ -150,6 +142,8 @@ void block_checking(){
 		b1->find_merge();
 		b2->find_merge();
 		b3->find_merge();
+		cout << "big_1 : " << b1->get_color() << "    " << b1->get_group()->get_set_size() << "============"  << endl;
+	
 	}
 	else if(initB->v.size() == 5)
 	{
@@ -171,6 +165,8 @@ void block_checking(){
 		b4->find_merge();
 		b5->find_merge();
 	}
+	initB->~big_block();
+
 	block * new_merge;
 	while(array_2d::can_explosion())
 	{
@@ -213,9 +209,9 @@ int main()
 		
 		move_block();// 키입력 while문으로 반복함 
 			
-		cout << endl;
-		cout << endl;
-		tmp->print();
+		//cout << endl;
+		//cout << endl;
+		//tmp->print();
 		
 		//모두 내리기
 		for(int index = initB->v.size() - 1; index >= 0; index--)
@@ -228,6 +224,7 @@ int main()
 		//블록 검사 및 병합 
 		block_checking();		
   	}
+	cout<< "score : " << tmp->get_score() << endl;
 	cout<< "***********GAME OVER***********"<<endl;
 }
 

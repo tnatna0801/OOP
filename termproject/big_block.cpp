@@ -33,7 +33,7 @@ void big_block::rotate(){
 bool big_block::can_left(){
 	int check= 0;
 	int dif_x = (this->max_x) - (this->min_x);
-	int dif_y = (this->max_y) - (this->min_y);
+	//int dif_y = (this->max_y) - (this->min_y);
 //	cout << dif_x << "   " << dif_y << endl;
 	//fold : v[0], v[1] 확인 
 	//tree : v[0], v[1], v[2] 확인
@@ -45,14 +45,14 @@ bool big_block::can_left(){
 	switch(dif_x)
 	{
 		case 0: // tree
-			if(tree_block::get_count() == 0) // 가로
+			if(tree_block::get_count() == 1) //가로
 			{
 				if(check==1)
 					return true;
 				else
 					break;
 			}
-			else if(tree_block::get_count() == 1)
+			else if(tree_block::get_count() == 0)
 			{	
 				if(v[1]->can_left()&&v[2]->can_left())
 					check++;
@@ -229,13 +229,13 @@ void big_block::down(){
 }
 ////////////////////////////////////////////////////////////////////////////////수정 
 void big_block::down_all(){
-	while(can_down())
-	{
+	//while(can_down())
+	//{
 		for(auto it = v.begin(); it != v.end(); it++)
 		{
-			(*it)->down();
+			(*it)->down_all();
 		}
-	}
+	//}
 }
 
 //유저가 입력한 키값을 받아서 move 
