@@ -31,7 +31,7 @@ fold_block::fold_block(int c1, int c2, int c3){
 
 //회전 
 void fold_block::rotate(){
-	cout << "회전 " << endl;
+	//cout << "회전 " << endl;
 	int x1 = v[0]->get_x();
 	int y1 = v[0]->get_y();
 

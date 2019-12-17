@@ -25,16 +25,16 @@ bool make_big_block()
 	srand((unsigned int)time(0));
 	
 	//블록 종류
-	int block_kinds = 1;//(rand()%3) + 1; 
+	int block_kinds = (rand()%3) + 1; 
 	
 	if(!(tmp->can_make(block_kinds)))
 		return make;
 
 
 	//각 블록의 색깔 
-	int c1 = 1;//(rand() % 4) + 1; 
-	int c2 = 1;//(rand() % 4) + 1;
-	int c3 = 4;//(rand() % 4) + 1;
+	int c1 = (rand() % 4) + 1; 
+	int c2 = (rand() % 4) + 1;
+	int c3 = (rand() % 4) + 1;
 
 	if(block_kinds == 1 && tmp->can_make(1))
 	{
@@ -192,10 +192,11 @@ int main()
 {	
 	cout << "***********START Puyo Puyo***********" << endl; 
 	
-	while(true) /////////////////////////////////////나중에 따로 함수 만들 것 : void game()
+	while(true)
 	{	
 		cout << "score : " << tmp->get_score() << endl;
-		
+		cout << endl;
+
 		if(!make_big_block())
 		{	
 			cout << "더이상 블록을 만들 수 없습니다." << endl;
