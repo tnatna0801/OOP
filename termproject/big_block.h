@@ -34,7 +34,7 @@ class big_block : public block {
 		void right();
 		void down();
 		void down_all();
-		bool move(int input);
+		//bool move(int input);
 		virtual _type types(); // big_block 종류 
 };
 

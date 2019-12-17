@@ -16,9 +16,6 @@ block::block(int color){
 
 //소멸자 
 block::~block(){
-/*
-   color를 0으로 바꾸고 color_block set에서도 지우고? array_2에서도 지우고? 모르겠다. 후
- */
 	array_2d::delete_block(this->x, this->y); // 
 	//this->color = 0;
 	//this->x = 2;
@@ -56,7 +53,6 @@ color_block * block::get_group(){
 }
 
 //x, y 좌표 설정
-//왜 이건 생성자에서 안하지?
 void block::set_location(int x, int y){
 	this->x = x;
 	this->y = y;
@@ -70,26 +66,26 @@ bool block::can_left(){
 	else
 		return false;
 }
-
+//우측으로 한칸 이동 가능한지 확인
 bool block::can_right(){
 	if(array_2d::can_move((this->get_x())+1, (this->get_y())))
 		return true;
 	else
 		return false;
 }
-
+//아래로 한칸 이동 가능한지 확인
 bool block::can_down(){
 	if(array_2d::can_move((this->get_x()), (this->get_y())+1))
 		return true;
 	else
 		return false;
 }
-
+//오른쪽으로 이동
 void block::right(){
 	array_2d::delete_block(get_x(), get_y());
 	this->set_location(get_x()+1, get_y());	
 }
-
+//왼쪽으로 이동
 void block::left(){
 	array_2d::delete_block(get_x(), get_y());
 	this->set_location(get_x()-1, get_y());
@@ -101,7 +97,7 @@ void block::down(){
 	array_2d::delete_block(get_x(), get_y());
 	this->set_location(get_x(), get_y()+1);
 }
-
+//한번에 끝까지 아래로 이동
 void block::down_all(){
 	while(true)
 	{
@@ -116,11 +112,12 @@ void block::down_all(){
 	array_2d::insert(get_x(), get_y(), this);
 }
 
+//블록끼리 같은 색인지 확인하고 결합할 수 있으면 결합한다. 
 bool block::can_merge(block *b){
 	//b->
 	if(b != nullptr)
 	{	
-		if(b->get_group() != this->get_group())
+		if(b->get_group() != this->get_group()) // 이미 결합된 경우는 제외 
 		{
 			if(b->get_color() == this->get_color() && b->get_color() != 1)
 				return true; // 구현 x
@@ -129,6 +126,7 @@ bool block::can_merge(block *b){
 	return false;
 }
 
+//color_block안의 원소(블록)이 4개 이상이면 터트릴 수 있다. 
 bool block::can_explosion(block *b){
 	if(b->get_group()->get_set_size() >= 4)
 	{
@@ -137,13 +135,13 @@ bool block::can_explosion(block *b){
 	return false;
 }
 
-//merge는 color_block끼리 합병 ㅑ
+//merge는 color_block끼리 합병 
 void block::merge(block *b){
 
 	this->get_group()->color_block::insert(b->get_group()->s);	
 }
 
-//merge하기 전에 find_merge로 알아보는 건가?
+//블록의 주변 블록들을 살펴 보면서 같은 색의 블록 끼리 결합한다. 
 // array_2d::get_block 이용 
 void block::find_merge(){
 	
@@ -151,9 +149,9 @@ void block::find_merge(){
 	int tmp_y = this->get_y();
 
 	block * l = array_2d::get_block(tmp_x-1, tmp_y);
-	block * r = array_2d::get_block(tmp_x+1, tmp_y); //segment fault
+	block * r = array_2d::get_block(tmp_x+1, tmp_y); 
 	block * u = array_2d::get_block(tmp_x, tmp_y-1);
-	block * d = array_2d::get_block(tmp_x, tmp_y+1); //segment fault
+	block * d = array_2d::get_block(tmp_x, tmp_y+1); 
 
 	//좌, 우, 위 
 

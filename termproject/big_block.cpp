@@ -218,7 +218,6 @@ void big_block::right(){
 	}
 }
 
-//왜 bool일까?/////////////////////////////////////////////////////////////수정
 void big_block::down(){
 	
 	for(auto it = v.begin(); it != v.end(); it++)
@@ -227,7 +226,7 @@ void big_block::down(){
 	}
 	
 }
-////////////////////////////////////////////////////////////////////////////////수정 
+ 
 void big_block::down_all(){
 	//while(can_down())
 	//{
@@ -238,15 +237,14 @@ void big_block::down_all(){
 	//}
 }
 
-//유저가 입력한 키값을 받아서 move 
+/*
+//유저가 입력한 키값을 받아서 move ==> 여기서 안하고 main에서 처리함 
 bool big_block::move(int input){
-	/*
 	1 : 좌측
 	2 : 우측 
 	3 : 아래
 	4 : 한꺼번에 아래 
 	5 : 회전 
-	 */
 	switch(input)
 	{
 		case 1:
@@ -276,5 +274,6 @@ bool big_block::move(int input){
 
 
 }
+*/
 
 big_block::_type big_block::types(){};

@@ -94,7 +94,7 @@ void color_block::explosion(){
 			}	
 		}
 		*/
-		(*it)->~block();// 소멸자 호출??
+		(*it)->~block();// 소멸자 호출
 
 		//////모든 블록 아래로 이동 
 		block * tmp;

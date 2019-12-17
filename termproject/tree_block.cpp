@@ -45,7 +45,7 @@ void tree_block::rotate(){
 	}
 	else // --- 가로
 	{
-		cout << "ㄱ가로 " << endl;
+	//	cout << "ㄱ가로 " << endl;
 		if(array_2d::can_move(x1+1, y1-1) && array_2d::can_move(x2-1, y2+1))
 		{
 			v[0]->set_location(x1 + 1, y1-1);

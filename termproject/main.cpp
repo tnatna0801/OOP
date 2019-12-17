@@ -142,7 +142,7 @@ void block_checking(){
 		b1->find_merge();
 		b2->find_merge();
 		b3->find_merge();
-		cout << "big_1 : " << b1->get_color() << "    " << b1->get_group()->get_set_size() << "============"  << endl;
+		//cout << "big_1 : " << b1->get_color() << "    " << b1->get_group()->get_set_size() << "============"  << endl;
 	
 	}
 	else if(initB->v.size() == 5)
@@ -171,6 +171,8 @@ void block_checking(){
 	while(array_2d::can_explosion())
 	{
 		array_2d::explosion();
+		//cout << "score : " << tmp->get_score << endl;
+		tmp->print();
 		for(int i = 0; i < H; i++)
 		{
 			for(int j = 0; j<W; j++)

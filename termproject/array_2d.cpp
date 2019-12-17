@@ -61,15 +61,13 @@ bool array_2d::can_make(int type){
 	return true; //구현 x
 }
 
-//이건 쪼개진 조그마한 블럭 삭제 
-//explosion에서 호출하는 건가? 
+//작은 블럭 삭제  
 void array_2d::delete_block(int x, int y){
 	block_array[y][x] = new block(0);
 	block_array[y][x]->set_location(x, y);
 }
 
-//왜 벡터를 매개변수로 받는거지?
-//big_block이라서 
+//big_block을 맵에 넣음 ==> insert(int, int, block*) 호출
 void array_2d::insert(vector<block *> v){
 	for(auto it = v.begin(); it != v.end(); it++)
 	{
@@ -78,7 +76,7 @@ void array_2d::insert(vector<block *> v){
 	//cout << "됐다" << endl;
 }
 
-//block을 매개변수로 받으면서 x, y는 왜 받지?
+//big_block의 작은 block들을 맵에 넣음 
 void array_2d::insert(int x, int y, block *b){
 	block_array[y][x] = b;
 	b->set_location(x, y);
@@ -86,7 +84,6 @@ void array_2d::insert(int x, int y, block *b){
 
 //get block
 //for문을 사용해서 매개변수 x, y와 일치하는 블럭을 가져옴
-//어디서? vector에서? 
 block * array_2d::get_block(int x, int y){
 	if(x < W && x >= 0)
 	{
@@ -99,7 +96,6 @@ block * array_2d::get_block(int x, int y){
 }
 
 //해당하는 좌표로 이동이 가능한지 확인
-//for문을 사용할듯 
 bool array_2d::can_move(int x, int y){
 
 	if( x >= 0 && x < W)
@@ -119,7 +115,7 @@ bool array_2d::can_move(int x, int y){
 
 }
 
-//map을 print? 
+//게임 맵 출력 
 void array_2d::print(){
 	for(int i = 0; i< H; i++)
 	{
@@ -134,14 +130,14 @@ void array_2d::print(){
 
 }
 
-//
+//동시에 여러개 터질 경우 고려
 void array_2d::insert_explosion(color_block *group){
 //	cout << "insert_explosion" << " "  << group->get_set_size() <<endl;
 	array_2d::explosion_s.insert(group);
 	//array_2d::remove_explosion(group);
 	
 	
-	//grey도 찾아야지... 
+	//grey를  찾는다. 
 	if(group->get_set_size() >= 4) // grey는 옆의 블록이 터지면 터진다. 
 	{
 		int x;
@@ -150,7 +146,7 @@ void array_2d::insert_explosion(color_block *group){
 		for(auto it = group->s.begin(); it != group->s.end(); it++)
 		{
 			x = (*it)->get_x();
-			y = (*it)->get_y(); //block이겠지? 옆에꺼 찾아야지 
+			y = (*it)->get_y(); 
 			if(get_block(x-1, y) != nullptr)
 			{
 				block * tmp = array_2d::get_block(x-1, y);
@@ -244,7 +240,7 @@ bool array_2d::can_explosion(){
 	{
 		for(int j = 0; j < W; j++)
 		{
-			//if() color 가 0 이 아닐 때 또는 group이 nullprt이 아닐때?
+			//if() color 가 0 이 아닐 때
 			boom = array_2d::block_array[i][j]; //->get_group();
 			if(boom->get_color() != 0)
 			{
@@ -255,16 +251,13 @@ bool array_2d::can_explosion(){
 			}
 		}
 	}
-	return false; //구현 x
+	return false; 
 	
 	//return true; //구현 x
 }
 
-//떠뜨림 == block 삭제? 
-//delete_block 사용? color block 이랑 연관되어있나?
-// 이걸로 그냥 싹다 검사해버릴까? for문 돌면서 검사하는거지 
-// 블록 검사
 
+// 블록 검사
 // 블록 삭제 
 void array_2d::explosion(){
 	//delete_block();
@@ -273,7 +266,6 @@ void array_2d::explosion(){
 	{
 		for(int j = 0; j < W; j++)
 		{
-			//if() color 가 0 이 아닐 때 또는 group이 nullprt이 아닐때?
 			boom = array_2d::block_array[i][j]; //->get_group();	
 			if(boom->get_color() != 0)
 			{
@@ -295,7 +287,7 @@ void array_2d::explosion(){
 		//array_2d::delete_block();
 		//array_2d::remove_explosion();
 	
-	array_2d::score += 1;
+	array_2d::score += 1; //explosion_s의 모든 원소들을 explosion했으므로 점수 증가 
 }
 
 //score 반환 
