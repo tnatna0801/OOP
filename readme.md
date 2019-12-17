@@ -1,1 +1,1 @@
-OOP 2 실습2주차
+**OOP 실습 과제 제출 repository**
